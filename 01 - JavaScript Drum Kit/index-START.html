@@ -5,9 +5,8 @@
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-
-
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -58,9 +57,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  window.addEventListener('keydown', function(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!audio) return; //stops function. Try putting the if statement at the top?
+    audio.currentTime = 0; // rewinds to the start
+    audio.play();
+    key.classList.add('playing'); // same as key.addClass("playing");
+  })
 
+  const removeTransition = (e) => {
+    if (e.propertyName !== 'transform') return; // skip if not a transform
+    e.currentTarget.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach((key) => {
+    key.addEventListener('transitionend', removeTransition);
+  });
 </script>
 
 
-</body>
+  </body>
 </html>
