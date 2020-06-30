@@ -61,7 +61,6 @@
   handleUpdate = (e) => {
     const suffix = e.currentTarget.dataset.sizing || "";
     document.documentElement.style.setProperty(`--${e.currentTarget.name}`, e.currentTarget.value + suffix)
-    console.log(suffix);
   }
 
   inputs.forEach(input => input.addEventListener('change', handleUpdate));
